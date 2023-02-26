@@ -4,7 +4,7 @@ import com.cnu.devblog.entity.Post;
 import com.cnu.devblog.model.request.PageRequest;
 import com.cnu.devblog.model.request.PostRequest;
 import com.cnu.devblog.model.type.Tag;
-import com.cnu.devblog.repository.PostSpecification;
+import com.cnu.devblog.repository.post.PostSpecification;
 import com.cnu.devblog.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

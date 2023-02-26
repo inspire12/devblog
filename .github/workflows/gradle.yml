@@ -18,10 +18,26 @@ permissions:
   contents: read
 
 jobs:
-  build:
-
+  test:
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
 
+      - name: Set up JDK 17
+        uses: actions/setup-java@v1
+        with:
+          java-version: 17
+
+      # Gradle wrapper 파일 실행 권한주기
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      # Gradle test를 실행한다
+      - name: Test with Gradle
+        run: ./gradlew --info test
+
+  build:
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - name: Set up JDK 17
@@ -52,7 +68,7 @@ jobs:
           host: 144.24.77.45
           username: ubuntu
           source: "devblog-0.0.1-SNAPSHOT.jar"
-          target: "/home/opc"
+          target: "/home/ubuntn"
           key: ${{ secrets.PRIVATE_KEY }}
 #         shell: bash
 #         run: scp ~/devblog/build/libs/devblog-0.0.1-SNAPSHOT.jar opc@144.24.77.45:/home/opc
@@ -61,5 +77,3 @@ jobs:
 #           scp ~/devblog/build/libs/devblog-0.0.1-SNAPSHOT.jar opc@144.24.77.45:/home/opc
 #       - name: Send jar to remote server
       
-    
-    

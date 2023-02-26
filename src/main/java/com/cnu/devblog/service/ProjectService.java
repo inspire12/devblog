@@ -1,14 +1,11 @@
 package com.cnu.devblog.service;
 
-import com.cnu.devblog.entity.Post;
 import com.cnu.devblog.entity.Project;
-import com.cnu.devblog.model.request.PostRequest;
 import com.cnu.devblog.model.request.ProjectRequest;
-import com.cnu.devblog.repository.ProjectRepository;
+import com.cnu.devblog.repository.post.ProjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

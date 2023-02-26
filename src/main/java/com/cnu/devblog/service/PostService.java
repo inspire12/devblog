@@ -2,7 +2,7 @@ package com.cnu.devblog.service;
 
 import com.cnu.devblog.entity.Post;
 import com.cnu.devblog.model.request.PostRequest;
-import com.cnu.devblog.repository.PostRepository;
+import com.cnu.devblog.repository.post.PostRepository;
 import com.cnu.devblog.service.valid.PostValidService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
