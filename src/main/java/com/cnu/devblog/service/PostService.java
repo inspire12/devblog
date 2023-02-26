@@ -3,12 +3,14 @@ package com.cnu.devblog.service;
 import com.cnu.devblog.entity.Post;
 import com.cnu.devblog.model.request.PostRequest;
 import com.cnu.devblog.repository.PostRepository;
+import com.cnu.devblog.service.valid.PostValidService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -16,8 +18,13 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PostService {
     private final PostRepository postRepository;
+    private final PostValidService postValidService;
 
-    public Post createPost(PostRequest postRequest) {
+    public Post createPost(PostRequest postRequest) throws Exception {
+        List<String> slangList = postValidService.getSlangList();
+        if (postValidService.isValidPost(slangList, postRequest.getContents())) {
+            throw new Exception();
+        }
         return postRepository.save(postRequest.toEntity());
     }
 
