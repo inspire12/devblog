@@ -57,6 +57,7 @@ jobs:
           host: ${{ secrets.HOST }}        # GitHub secret에 저장된 HOST
           username: ${{ secrets.USERNAME }}    # GitHub secret에 저장된 USERNAME
           password: ${{ secrets.PASSWORD }}
+          source: "deploy.sh"
           target: "/home/ubuntu/deploy"
       - name: Execute script
         uses: appleboy/ssh-action@master
