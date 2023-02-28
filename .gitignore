@@ -1,0 +1,6 @@
+current/**
+versions/**
+
+.idea/**
+.gradle/**
+build/**

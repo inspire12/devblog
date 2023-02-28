@@ -46,5 +46,7 @@ spring:
       hibernate:
         format_sql: true # 실행되는 query를 보여줌
 
-logging.level:
-  org.hibernate.SQL: debug
+logging:
+  level:
+    org.hibernate.SQL: debug
+  config:
