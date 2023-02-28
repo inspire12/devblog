@@ -7,6 +7,7 @@ import com.cnu.devblog.service.valid.PostValidService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,15 +20,18 @@ import static org.mockito.Mockito.when;
 class PostValidServiceTest {
     PostValidService postValidService;
 
+    PostValidService postMockValidService;
+
     SlangRepository slangRepository;
 
     @BeforeEach
     void setUp() {
         slangRepository = mock(SlangRepository.class);
         postValidService = new PostValidService(slangRepository);
+        postMockValidService = mock(PostValidService.class);
     }
 
-    @DisplayName("post 내용에 비속어가 있나 테스트")
+    @DisplayName("post 내용에 비속어가 있나 테스트 repository mock")
     @Test
     void testValidPostIncludeMockSlang() {
         // given 시나리오
@@ -47,13 +51,13 @@ class PostValidServiceTest {
         assertThat(validPost).isEqualTo(true);
     }
 
-    @DisplayName("post 내용에 비속어가 있나 테스트")
+    @DisplayName("post 내용에 비속어가 있나 테스트 service mock")
     @Test
     void testValidPostIncludeSlang() {
         // given 시나리오
         String testInput = "비속어가 섞인 욕";
-        when(postValidService.getSlangList()).thenReturn(List.of("비속어", "비속어1", "비속어2"));
-        List<String> slangList = postValidService.getSlangList();
+        when(postMockValidService.getSlangList()).thenReturn(List.of("비속어", "비속어1", "비속어2"));
+        List<String> slangList = postMockValidService.getSlangList();
         // when 실행
         boolean validPost = postValidService.isValidPost(slangList, testInput);
         // then 검증

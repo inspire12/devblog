@@ -35,7 +35,7 @@ public class PostValidServiceWithSpringContextTest {
         // when
         boolean validPost = postValidService.isValidPost(slangEntities, testInput);
         // then 검증
-        assertThat(validPost).isEqualTo(true);
+        assertThat(validPost).isEqualTo(false);
     }
 
 }

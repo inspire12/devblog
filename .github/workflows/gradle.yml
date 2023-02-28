@@ -3,7 +3,7 @@ name: Deployment
 on:
   workflow_dispatch:
   push:
-    branches: [ "main" ]
+    branches: [ "release" ]
 
 permissions:
   contents: read
@@ -39,11 +39,11 @@ jobs:
       - name: Send jar to remote server
         uses: appleboy/scp-action@master
         with:
-          host: 144.24.77.45
-          username: opc
+          host: ${{ secrets.HOST }}        # GitHub secret에 저장된 HOST
+          username: ${{ secrets.USERNAME }}    # GitHub secret에 저장된 USERNAME
+          password: ${{ secrets.PASSWORD }}
           source: "devblog-0.0.1-SNAPSHOT.jar"
-          target: "/home/opc"
-          key: ${{ secrets.PRIVATE_KEY }}
+          target: "/home/ubuntu/deploy"
 
   run-app:
     needs: send-jar
@@ -54,16 +54,15 @@ jobs:
       - name: Move deploy.sh
         uses: appleboy/scp-action@master
         with:
-          host: 144.24.77.45
-          username: opc
-          source: "deploy.sh"
-          target: "/home/opc"
-          key: ${{ secrets.PRIVATE_KEY }}
+          host: ${{ secrets.HOST }}        # GitHub secret에 저장된 HOST
+          username: ${{ secrets.USERNAME }}    # GitHub secret에 저장된 USERNAME
+          password: ${{ secrets.PASSWORD }}
+          target: "/home/ubuntu/deploy"
       - name: Execute script
         uses: appleboy/ssh-action@master
         with:
-          username: opc
-          host: 144.24.77.45
-          key: ${{ secrets.PRIVATE_KEY }}
+          host: ${{ secrets.HOST }}        # GitHub secret에 저장된 HOST
+          username: ${{ secrets.USERNAME }}    # GitHub secret에 저장된 USERNAME
+          password: ${{ secrets.PASSWORD }}
           script_stop: true
-          script: cd /home/opc && chmod +x deploy.sh && ./deploy.sh
+          script: cd /home/ubuntu/deploy && chmod +x deploy.sh && ./deploy.sh
