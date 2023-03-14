@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.util.PatternMatchUtils;
 
 @Service
 public class PostValidService {
@@ -20,6 +21,7 @@ public class PostValidService {
     public boolean isValidPost(List<String> slangList, String postContent) {
         List<Boolean> result = new ArrayList<>();
         for (String slang : slangList) {
+//            result.add(PatternMatchUtils.simpleMatch(slang, postContent));
             if(postContent.contains(slang)) {
                 result.add(true);
             }

@@ -58,6 +58,7 @@ public class PostController {
                     PostSpecification
                             .lessThanOrEqualTo(LocalDateTime.of(endDate, LocalDateTime.MAX.toLocalTime()))
             );
+
         }
         if (tag != null) {
             spec = spec.and(

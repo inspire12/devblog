@@ -17,6 +17,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class PostService {
+
     private final PostRepository postRepository;
     private final PostValidService postValidService;
 
@@ -34,7 +35,7 @@ public class PostService {
 
     public Post updatePost(Integer id, PostRequest postRequest) {
         Post post = postRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException()); //FIXME: ERROR_CODE 정의하기
+            .orElseThrow(() -> new RuntimeException()); //FIXME: ERROR_CODE 정의하기
         post.setTitle(postRequest.getTitle());
         post.setContents(postRequest.getContents());
         return postRepository.save(post);
@@ -42,7 +43,7 @@ public class PostService {
 
     public void deletePost(Integer id) {
         postRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException()); //FIXME: ERROR_CODE 정의하기
+            .orElseThrow(() -> new RuntimeException()); //FIXME: ERROR_CODE 정의하기
         postRepository.deleteById(id);
     }
 
