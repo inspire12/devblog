@@ -1,11 +1,16 @@
 package com.cnu.devblog.service;
 
+import com.cnu.devblog.model.request.PostListRequest;
+import com.cnu.devblog.repository.domain.PostDomainRepository;
 import com.cnu.devblog.entity.Post;
+import com.cnu.devblog.exception.PostInvalidException;
 import com.cnu.devblog.model.request.PostRequest;
-import com.cnu.devblog.repository.post.PostRepository;
+import com.cnu.devblog.repository.persistence.post.PostSpecification;
 import com.cnu.devblog.service.valid.PostValidService;
+import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -18,36 +23,55 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PostService {
 
-    private final PostRepository postRepository;
+    private final PostDomainRepository postDomainRepository;
     private final PostValidService postValidService;
 
-    public Post createPost(PostRequest postRequest) throws Exception {
+    public Post createPost(PostRequest postRequest) {
         List<String> slangList = postValidService.getSlangList();
         if (postValidService.isValidPost(slangList, postRequest.getContents())) {
-            throw new Exception();
+            throw new PostInvalidException();
         }
-        return postRepository.save(postRequest.toEntity());
+        return postDomainRepository.save(postRequest.toEntity());
     }
 
     public Optional<Post> getPost(Integer id) {
-        return postRepository.findById(id);
+        return postDomainRepository.findById(id);
     }
 
+    
     public Post updatePost(Integer id, PostRequest postRequest) {
-        Post post = postRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException()); //FIXME: ERROR_CODE 정의하기
-        post.setTitle(postRequest.getTitle());
-        post.setContents(postRequest.getContents());
-        return postRepository.save(post);
+        return postDomainRepository.updatePost(id, postRequest);
     }
 
     public void deletePost(Integer id) {
-        postRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException()); //FIXME: ERROR_CODE 정의하기
-        postRepository.deleteById(id);
+        if (postDomainRepository.exist(id)) {
+            postDomainRepository.deleteById(id);
+        }
     }
 
-    public Page<Post> getPosts(Specification<Post> specification, Pageable pageable) {
-        return postRepository.findAll(specification, pageable);
+    
+    public Page<Post> getPosts(PostListRequest postListRequest, Pageable pageable) {
+        Specification<Post> spec = (root, query, criteriaBuilder) -> null;
+    
+        if (postListRequest.getStartDate() != null) {
+            spec = spec.and(
+                PostSpecification
+                    .greaterThanOrEqualTo(LocalDateTime.of(postListRequest.getStartDate(), LocalDateTime.MIN.toLocalTime()))
+            );
+        }
+        if (postListRequest.getEndDate() != null) {
+            spec = spec.and(
+                PostSpecification
+                    .lessThanOrEqualTo(LocalDateTime.of(postListRequest.getEndDate(), LocalDateTime.MAX.toLocalTime()))
+            );
+        
+        }
+        if (postListRequest.getTag() != null) {
+            spec = spec.and(
+                PostSpecification
+                    .equalTo(postListRequest.getTag())
+            );
+        }
+        return postDomainRepository.findAll(spec, pageable);
     }
 }

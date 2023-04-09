@@ -1,13 +1,11 @@
 package com.cnu.devblog.service.valid;
 
 import com.cnu.devblog.entity.Slang;
-import com.cnu.devblog.repository.post.PostRepository;
-import com.cnu.devblog.repository.slang.SlangRepository;
+import com.cnu.devblog.repository.persistence.slang.SlangRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.util.PatternMatchUtils;
 
 @Service
 public class PostValidService {

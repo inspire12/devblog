@@ -5,7 +5,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.cnu.devblog.entity.Slang;
-import com.cnu.devblog.repository.slang.SlangRepository;
+import com.cnu.devblog.repository.persistence.slang.SlangRepository;
 import com.cnu.devblog.service.valid.PostValidService;
 import java.util.ArrayList;
 import java.util.List;

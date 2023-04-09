@@ -2,7 +2,7 @@ package com.cnu.devblog.service;
 
 import com.cnu.devblog.entity.Project;
 import com.cnu.devblog.model.request.ProjectRequest;
-import com.cnu.devblog.repository.post.ProjectRepository;
+import com.cnu.devblog.repository.persistence.post.ProjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

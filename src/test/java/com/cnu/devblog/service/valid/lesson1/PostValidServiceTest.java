@@ -1,8 +1,7 @@
 package com.cnu.devblog.service.valid.lesson1;
 
 import com.cnu.devblog.entity.Slang;
-import com.cnu.devblog.repository.post.PostRepository;
-import com.cnu.devblog.repository.slang.SlangRepository;
+import com.cnu.devblog.repository.persistence.slang.SlangRepository;
 import com.cnu.devblog.service.valid.PostValidService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

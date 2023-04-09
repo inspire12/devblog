@@ -1,4 +1,4 @@
-package com.cnu.devblog.repository.post;
+package com.cnu.devblog.repository.persistence.post;
 
 import com.cnu.devblog.entity.Post;
 import com.cnu.devblog.model.type.Tag;

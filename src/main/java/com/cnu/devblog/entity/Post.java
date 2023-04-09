@@ -13,11 +13,9 @@ public class Post extends BaseEntity {
     private Integer id;
 
     @Column
-    @Setter
     private String title;
 
     @Column
-    @Setter
     private String contents;
 
     @Enumerated(EnumType.STRING)
@@ -28,5 +26,10 @@ public class Post extends BaseEntity {
         this.title = title;
         this.contents = contents;
         this.tag = tag;
+    }
+    
+    public void updatePost(String title, String contents) {
+        this.title = title;
+        this.contents = contents;
     }
 }

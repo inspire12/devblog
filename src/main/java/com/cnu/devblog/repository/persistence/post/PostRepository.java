@@ -1,4 +1,4 @@
-package com.cnu.devblog.repository.post;
+package com.cnu.devblog.repository.persistence.post;
 
 import com.cnu.devblog.entity.Post;
 import org.springframework.data.domain.Page;
@@ -11,5 +11,5 @@ import java.time.LocalDateTime;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, Integer>, JpaSpecificationExecutor<Post> {
-    Page<Post> findByCreatedAtBetween(LocalDateTime createdAt, LocalDateTime createdAt2, Pageable pageable);
+    Page<Post> findByCreatedAtBetween(LocalDateTime startedAt, LocalDateTime endedAt, Pageable pageable);
 }

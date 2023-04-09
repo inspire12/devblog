@@ -2,12 +2,11 @@ package com.cnu.devblog.service.valid.lesson1;
 
 
 import com.cnu.devblog.entity.Slang;
-import com.cnu.devblog.repository.slang.SlangRepository;
+import com.cnu.devblog.repository.persistence.slang.SlangRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 
 import java.util.List;

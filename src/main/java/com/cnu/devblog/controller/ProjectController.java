@@ -6,6 +6,10 @@ import com.cnu.devblog.model.request.ProjectRequest;
 import com.cnu.devblog.service.ProjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -40,7 +44,7 @@ public class ProjectController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<Project>> getPosts(PageRequest pageRequest) {
-        return ResponseEntity.ok(projectService.getProjects(pageRequest.of()));
+    public ResponseEntity<Page<Project>> getPosts(@PageableDefault(sort = "id", direction = Direction.DESC) Pageable pageable) {
+        return ResponseEntity.ok(projectService.getProjects(pageable));
     }
 }

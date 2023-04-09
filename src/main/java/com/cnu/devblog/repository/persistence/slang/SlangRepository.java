@@ -1,4 +1,4 @@
-package com.cnu.devblog.repository.slang;
+package com.cnu.devblog.repository.persistence.slang;
 
 import com.cnu.devblog.entity.Slang;
 import jakarta.persistence.Entity;
